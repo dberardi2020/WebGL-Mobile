@@ -3,17 +3,18 @@
 <head>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
     <meta charset="utf-8"/>
-    <title>Project 1</title>
+    <title>Project 2</title>
 
     <script id="vshader" type="x-shader/x-vertex">
 
     attribute vec4 vertexPosition;
     attribute vec4 vertexColor;
     varying vec4 fColor;
+    uniform mat4 projMatrix;
     uniform mat4 modelMatrix;
 
 	void main() {
-	    gl_Position = modelMatrix * vertexPosition;
+	    gl_Position = projMatrix * modelMatrix * vertexPosition;
 	    gl_PointSize = 3.0;
 	    fColor = vertexColor;
   	}
@@ -38,27 +39,23 @@
     <script src="lib/initShaders.js"></script>
     <script src="lib/MV.js"></script>
 
-    <script src="project1.js"></script>
+    <script src="project2.js"></script>
 
 </head>
 
 <body onload="main()">
 <div class="row flex">
     <div>
-        <H1>Computer Graphics: Project 1</H1>
+        <H1>Computer Graphics: Project 2</H1>
         <h3>Dimitri Berardi</h3>
 
-        <h2 id="CurrentMode">File Mode</h2>
+        <p id="description"></p>
 
-        <p id="description">sv</p>
-
-        <input type="file" id="fileSelector" accept=".dat"/><br>
-        <label for="colorPicker">Pick a Color: </label>
-        <input id="colorPicker" type="color"/><br>
+        <input type="file" id="fileSelector" accept=".ply"/><br>
     </div>
 
     <div>
-        <canvas id="webgl" width="600" height="600" style="border:1px solid #000000">
+        <canvas id="webgl" width="600" height="600">
 
         </canvas>
         <br>
