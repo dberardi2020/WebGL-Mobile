@@ -15,7 +15,7 @@
 
 	void main() {
 	    gl_Position = projMatrix * modelMatrix * vertexPosition;
-	    gl_PointSize = 3.0;
+	    gl_PointSize = 10.0;
 	    fColor = vertexColor;
   	}
 
@@ -40,10 +40,14 @@
     <script src="lib/MV.js"></script>
 
     <script src="project2.js"></script>
+    <script src="src/fileHandler.js"></script>
+    <script src="src/initializationHandler.js"></script>
+    <script src="src/renderHandler.js"></script>
+    <script src="src/keyPressHandler.js"></script>
 
 </head>
 
-<body onload="main()">
+<body onload="initialize()">
 <div class="row flex">
     <div>
         <H1>Computer Graphics: Project 2</H1>

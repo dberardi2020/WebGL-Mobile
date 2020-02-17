@@ -3,7 +3,12 @@ Project 1 - Documentation
 --- Project Structure ---
 The structure of this project is as follows:
 - lib folder
-- project1.html
+- src folder
+--- fileHandler.js
+--- initializationHandler.js
+--- keyPressHandler.js
+--- renderHandler.js
+- project2.html
 - project2.js
 - stylesheet.css
 
@@ -19,26 +24,13 @@ based elements for all text displayed on the webpage, and two input elements.  T
 is used for letting users upload a .dat file.  The second is used to allow the user to choose a color
 from a color palette to change the color of the image drawn.
 
-The project2.js file contains all the code to handle user input, parse a .dat file, and draw images
-using WebGL.  The structure of this file is very function based, as I broke every step in the process
-that I could down into simple functions.  This allowed me to make simple function calls for complex
-actions the further I got into development.  the "main()" method handles most keyboard inputs and
-calls the functions which handle initialization, draw mode and file mode.  There are multiple
-functions for parsing the .dat file, each of them responsible for 1 or more key steps in the process.
-The two other main functions are used to draw the current image to the canvas, and helper functions
-to do small tasks needed along the way.  The functions to draw to the canvas are broken down into
-individual steps in the process, such as drawing a single polyline, coloring the image and such.
-The helper functions do small tasks such as adjusting the viewport, setting extent, clearing the canvas,
-and doing conversions.  There finally is a function to handle the getting user input in drawing and
-handing of the input off to the proper functions.
+The project2.js file contains the center point for handling all input events and initiating the
+rendering of the program.
+
+All of the files within the src folder are named appropriately for the function they serve.
 
 Finally, the CSS file is mainly used for spacing so that I could make my webpage look the way I wanted
 it to in a clean way that follows standard web development practices.
 
 --- Extra Credit ---
-For extra credit, I applied a color picker which allows the user to select any color, instead of only
-being able to cycle between the 4 specified in the project.  I tried to make this even cooler, and
-to stick to the guidelines by not allowing the user to select a color which would be too light against
-the white background.  Finally, while it may not count towards extra credit, I tried to go the extra mile
-and take care of little things such as not allowing the user upload anything other than a .dat file and adding
-appropriate loggers for swift debugging.
+None
