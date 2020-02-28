@@ -1,15 +1,25 @@
-Project 1 - Documentation
+Project 3, Part 1 - Documentation
 
 --- Project Structure ---
 The structure of this project is as follows:
 - lib folder
 - src folder
---- fileHandler.js
---- initializationHandler.js
---- keyPressHandler.js
---- renderHandler.js
-- project2.html
-- project2.js
+--- architecture folder
+----- initializationHandler.js
+----- keyPressHandler.js
+----- variablesHandler.js
+--- graphics folder
+----- bufferHandler.js
+----- lightingHandler.js
+----- renderHandler.js
+--- mobile folder
+----- connectorHandler.js
+----- cubeHandler.js
+----- sphereHandler.js
+----- generateMobileElements.js
+----- mobileHandler.js
+- index.html
+- project3.js
 - stylesheet.css
 
 --- File Contents ---
@@ -17,20 +27,21 @@ The lib folder contains three JavaScript files which were given to us to use thr
 They were written to help make certain calculations and functions simpler.  I did not edit or change these files
 in any way.
 
-The project1.html file defines the UI of the webpage, while also defining the elements used throughout
-the project.  Any element which contains an "id" field is used later in our JavaScript. The important
-elements are the canvas, which I gave extra styling (a border) to aid in visualization, various text
-based elements for all text displayed on the webpage, and two input elements.  The first input element
-is used for letting users upload a .dat file.  The second is used to allow the user to choose a color
-from a color palette to change the color of the image drawn.
+The index.html file defines the UI of the webpage, and implements our WebGL shaders.  The majority of the code
+written in the index.html file is used for lighting and drawing our mobile.
 
-The project2.js file contains the center point for handling all input events and initiating the
-rendering of the program.
+The project3.js file contains the center point for handling all input events, setting initial lighting and
+initiating the rendering of the program.
 
-All of the files within the src folder are named appropriately for the function they serve.
+All of the folder and subsequent files within the src folder are named appropriately for the function they serve.
 
 Finally, the CSS file is mainly used for spacing so that I could make my webpage look the way I wanted
 it to in a clean way that follows standard web development practices.
 
 --- Extra Credit ---
 None
+
+--- Additional Info ---
+My program does not use any .ply files
+
+The spotlight points from the light source towards the back left corner of the scene

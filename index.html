@@ -3,20 +3,51 @@
 <head>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
     <meta charset="utf-8"/>
-    <title>Project 2</title>
+    <title>Project 3</title>
 
     <script id="vshader" type="x-shader/x-vertex">
 
     attribute vec4 vertexPosition;
+    attribute vec4 vertexNormal;
     attribute vec4 vertexColor;
+
     varying vec4 fColor;
-    uniform mat4 projMatrix;
+
+    uniform mat4 projectionMatrix;
     uniform mat4 modelMatrix;
 
+    uniform vec4 ambientProduct;
+    uniform vec4 diffuseProduct;
+    uniform vec4 specularProduct;
+
+    uniform vec4 lightPosition;
+    uniform float spotlightAngle;
+
+    uniform float shininess;
+
 	void main() {
-	    gl_Position = projMatrix * modelMatrix * vertexPosition;
+    	vec3 pos = (modelMatrix * vertexPosition).xyz;
+    	vec3 L = normalize(lightPosition.xyz - pos);
+
+    	vec3 N = normalize(modelMatrix * vertexNormal).xyz;
+
+    	vec3 V = normalize(-pos);
+        vec3 R = (2.0 * dot(L, N) * N) - L;
+
+        vec4 diffuse = vec4(0, 0, 0, 0.8);
+        vec4 ambient = ambientProduct;
+        vec4 specular = vec4(0, 0, 0, 0.8);
+
+        vec3 lightDir = normalize(vec3(-1.0, -1.0, -2.2));
+
+        if (dot(L, -lightDir) < spotlightAngle) {
+            diffuse = diffuseProduct * max(dot(L, N), 0.0);
+            specular = specularProduct * pow(max(dot(V, R), 0.0), shininess);
+        }
+
+	    gl_Position = projectionMatrix * modelMatrix * vertexPosition;
 	    gl_PointSize = 10.0;
-	    fColor = vertexColor;
+	    fColor = ambient + (diffuse * vertexColor) + specular;
   	}
 
 
@@ -26,6 +57,7 @@
 
 	precision mediump float;    // Always need this in fragment shader
 	varying vec4 fColor;
+
 
 	void main()
 	{
@@ -39,23 +71,29 @@
     <script src="lib/initShaders.js"></script>
     <script src="lib/MV.js"></script>
 
-    <script src="project2.js"></script>
-    <script src="src/fileHandler.js"></script>
-    <script src="src/initializationHandler.js"></script>
-    <script src="src/renderHandler.js"></script>
-    <script src="src/keyPressHandler.js"></script>
+    <script src="project3.js"></script>
+    <script src="src/architecture/initializationHandler.js"></script>
+    <script src="src/graphics/renderHandler.js"></script>
+    <script src="src/architecture/keyPressHandler.js"></script>
+    <script src="src/graphics/bufferHandler.js"></script>
+    <script src="src/mobile/mobileHandler.js"></script>
+    <script src="src/architecture/variablesHandler.js"></script>
+    <script src="src/graphics/lightingHandler.js"></script>
+    <script src="src/mobile/sphereHandler.js"></script>
+    <script src="src/mobile/cubeHandler.js"></script>
+    <script src="src/mobile/generateMobileElementsHandler.js"></script>
+    <script src="src/mobile/connectorHandler.js"></script>
 
 </head>
 
 <body onload="initialize()">
 <div class="row flex">
     <div>
-        <H1>Computer Graphics: Project 2</H1>
+        <H1>Computer Graphics</H1>
+        <h2>Project 3, Part 1</h2>
         <h3>Dimitri Berardi</h3>
 
         <p id="description"></p>
-
-        <input type="file" id="fileSelector" accept=".ply"/><br>
     </div>
 
     <div>
