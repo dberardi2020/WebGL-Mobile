@@ -9,6 +9,10 @@ function runProgram() {
     // Setup lighting
     setLighting();
 
+    // Setup cube map
+    setupCubeMapNoImages();
+    setupCubeMapWithImages();
+
     // Start rendering
     render();
 

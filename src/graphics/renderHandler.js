@@ -7,6 +7,8 @@ function render() {
     perspectiveMatrix = perspective(45.0, aspectRatio, .1, 500);
     gl.uniformMatrix4fv(projection, false, flatten(perspectiveMatrix));
 
+    handleRefs();
+
     // Draw the mobile for each render
     drawMobile();
 

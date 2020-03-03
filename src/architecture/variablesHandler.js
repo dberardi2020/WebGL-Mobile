@@ -1,3 +1,14 @@
+// Strings for HTML
+let description =
+    "Keyboard Shortcuts:\n" +
+    "\tM: Enable Flat Shading\n" +
+    "\tm: Enable Gouraud Shading\n" +
+    "\tP: Decrease spotlight\n" +
+    "\tp: Increase spotlight\n" +
+    "\tR: Generate new mobile\n" +
+    "\tC: Toggle Reflection\n" +
+    "\tD: Toggle Refraction\n";
+
 // Projection variables
 let eyeZ = 9;
 const eye = vec3(0, 0, eyeZ);
@@ -87,11 +98,36 @@ let topElement;
 let middleElements = [];
 let bottomElements = [];
 
-// Strings for HTML
-let description =
-    "Keyboard Shortcuts:\n" +
-    "\tM: Enable Flat Shading\n" +
-    "\tm: Enable Gouraud Shading\n" +
-    "\tP: Decrease spotlight\n" +
-    "\tp: Increase spotlight\n" +
-    "\tR: Generate new mobile\n";
+/************** Cube Map and Texture Variables **************/
+
+let cubeMap;
+
+let envMapLinks = [
+    "http://web.cs.wpi.edu/~jmcuneo/env_map_sides/nvnegx.bmp",
+    "http://web.cs.wpi.edu/~jmcuneo/env_map_sides/nvnegy.bmp",
+    "http://web.cs.wpi.edu/~jmcuneo/env_map_sides/nvnegz.bmp",
+    "http://web.cs.wpi.edu/~jmcuneo/env_map_sides/nvposx.bmp",
+    "http://web.cs.wpi.edu/~jmcuneo/env_map_sides/nvposy.bmp",
+    "http://web.cs.wpi.edu/~jmcuneo/env_map_sides/nvposz.bmp",
+];
+
+let envMap = {
+    "negX": new Image(),
+    "negY": new Image(),
+    "negZ": new Image(),
+    "posX": new Image(),
+    "posY": new Image(),
+    "posZ": new Image(),
+};
+
+let envMapArray = Object.values(envMap);
+
+let reflectionOn = false;
+let refractionOn = false;
+
+let refsToggle = {
+    "bothOff": 0.0,
+    "refractionOn": 1.0,
+    "reflectionOn": 2.0,
+    "bothOn": 3.0,
+};

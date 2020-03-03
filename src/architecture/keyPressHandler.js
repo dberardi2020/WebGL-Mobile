@@ -23,5 +23,11 @@ function handleKeyPress(key) {
         case 'R':
             location.reload();
             break;
+        case 'C':
+            reflectionOn = !reflectionOn;
+            break;
+        case 'D':
+            refractionOn = !refractionOn;
+            break;
     }
 }

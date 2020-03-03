@@ -25,6 +25,13 @@
 
     uniform float shininess;
 
+    // Reflection and refraction
+    varying vec3 reflection;
+    varying vec3 refraction;
+    uniform float vTextureSwitch;
+    varying float fTextureSwitch;
+
+
 	void main() {
     	vec3 pos = (modelMatrix * vertexPosition).xyz;
     	vec3 L = normalize(lightPosition.xyz - pos);
@@ -33,6 +40,9 @@
 
     	vec3 V = normalize(-pos);
         vec3 R = (2.0 * dot(L, N) * N) - L;
+
+        refraction = refract(pos, N, 0.95);
+        reflection = reflect(pos, N);
 
         vec4 diffuse = vec4(0, 0, 0, 0.8);
         vec4 ambient = ambientProduct;
@@ -48,7 +58,10 @@
 	    gl_Position = projectionMatrix * modelMatrix * vertexPosition;
 	    gl_PointSize = 10.0;
 	    fColor = ambient + (diffuse * vertexColor) + specular;
+	    fTextureSwitch = vTextureSwitch;
   	}
+
+
 
 
     </script>
@@ -58,11 +71,32 @@
 	precision mediump float;    // Always need this in fragment shader
 	varying vec4 fColor;
 
+    // Reflection and Refraction
+    varying vec3 reflection;
+    varying vec3 refraction;
+
+    varying float fTextureSwitch;
+
+	uniform samplerCube texMap;
 
 	void main()
 	{
-	    gl_FragColor = fColor;
+	    vec4 refractionColor = textureCube(texMap, refraction);
+	    vec4 reflectionColor = textureCube(texMap, reflection);
+
+	    if(fTextureSwitch == 0.0) {
+	        gl_FragColor = fColor;
+	    } else if(fTextureSwitch == 1.0) {
+	        gl_FragColor = fColor*refractionColor;
+	    } else if(fTextureSwitch == 2.0) {
+	        gl_FragColor = fColor*reflectionColor;
+	    } else if(fTextureSwitch == 3.0) {
+	        gl_FragColor = fColor*reflectionColor*refractionColor;
+	    }
+
   	}
+
+
 
 
     </script>
@@ -83,6 +117,7 @@
     <script src="src/mobile/cubeHandler.js"></script>
     <script src="src/mobile/generateMobileElementsHandler.js"></script>
     <script src="src/mobile/connectorHandler.js"></script>
+    <script src="src/graphics/cubeMapHandler.js"></script>
 
 </head>
 
