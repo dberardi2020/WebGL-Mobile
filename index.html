@@ -31,6 +31,10 @@
     uniform float vTextureSwitch;
     varying float fTextureSwitch;
 
+    // Environment Map
+    attribute vec2 vTexCoord;
+    varying vec2 fTexCoord;
+    varying vec4 fColorFlat;
 
 	void main() {
     	vec3 pos = (modelMatrix * vertexPosition).xyz;
@@ -59,6 +63,8 @@
 	    gl_PointSize = 10.0;
 	    fColor = ambient + (diffuse * vertexColor) + specular;
 	    fTextureSwitch = vTextureSwitch;
+	    fTexCoord = vTexCoord;
+	    fColorFlat = vertexColor;
   	}
 
 
@@ -74,15 +80,20 @@
     // Reflection and Refraction
     varying vec3 reflection;
     varying vec3 refraction;
-
     varying float fTextureSwitch;
-
 	uniform samplerCube texMap;
+
+	// Environment Map
+	varying vec2 fTexCoord;
+	uniform sampler2D stone;
+	uniform sampler2D grass;
+	varying vec4 fColorFlat;
 
 	void main()
 	{
 	    vec4 refractionColor = textureCube(texMap, refraction);
 	    vec4 reflectionColor = textureCube(texMap, reflection);
+
 
 	    if(fTextureSwitch == 0.0) {
 	        gl_FragColor = fColor;
@@ -92,8 +103,13 @@
 	        gl_FragColor = fColor*reflectionColor;
 	    } else if(fTextureSwitch == 3.0) {
 	        gl_FragColor = fColor*reflectionColor*refractionColor;
-	    }
-
+	    } else if(fTextureSwitch == 4.0) {
+	        gl_FragColor = texture2D(stone, fTexCoord);
+        } else if(fTextureSwitch == 5.0) {
+	        gl_FragColor = texture2D(grass, fTexCoord);
+        } else if(fTextureSwitch == 6.0) {
+	        gl_FragColor = fColorFlat;
+        }
   	}
 
 
@@ -118,6 +134,8 @@
     <script src="src/mobile/generateMobileElementsHandler.js"></script>
     <script src="src/mobile/connectorHandler.js"></script>
     <script src="src/graphics/cubeMapHandler.js"></script>
+    <script src="src/graphics/envMapHandler.js"></script>
+    <script src="src/graphics/shadowHandler.js"></script>
 
 </head>
 
@@ -125,14 +143,14 @@
 <div class="row flex">
     <div>
         <H1>Computer Graphics</H1>
-        <h2>Project 3, Part 1</h2>
+        <h2>Project 3, Part 2</h2>
         <h3>Dimitri Berardi</h3>
 
         <p id="description"></p>
     </div>
 
     <div>
-        <canvas id="webgl" width="600" height="600">
+        <canvas id="webgl" width="700" height="600" style="border:1px solid #000000">
 
         </canvas>
         <br>

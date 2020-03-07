@@ -4,11 +4,15 @@
  * to rotate the mobile on each render
  */
 function drawMobile() {
+    handleRefs();
+
+    gl.disableVertexAttribArray(vTexCoord);
     rotateElements(0.5);
 
     drawTop();
     drawMiddle();
     drawBottom();
+    gl.enableVertexAttribArray(vTexCoord);
 }
 
 /**
@@ -30,6 +34,12 @@ function drawTop() {
     flattenMVMatrix();
 
     drawConnectors(topElement, middleElements[0], middleElements[1]);
+
+    // These lines make it so the shadow rotates in the proper direction
+    rotateAboutSelfY(topElement);
+    rotateAboutSelfY(topElement);
+
+    drawShadows(topElement, mobileLevels.top);
 }
 
 /**
@@ -53,6 +63,8 @@ function drawMiddle() {
         }
 
         drawElement(currentElement);
+
+        drawShadows(currentElement, mobileLevels.middle);
     }
 }
 
@@ -72,6 +84,8 @@ function drawBottom() {
         flattenMVMatrix();
 
         drawElement(currentElement);
+
+        drawShadows(currentElement, mobileLevels.bottom);
     }
 }
 
@@ -170,10 +184,10 @@ function flattenMVMatrix() {
 function drawElement(element) {
     switch (element.shape) {
         case "cube":
-            drawMobileCube(element);
+            drawCube(element);
             break;
         case "sphere":
-            drawMobileSphere(element);
+            drawSphere(element);
             break;
     }
 }

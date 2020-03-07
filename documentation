@@ -1,4 +1,4 @@
-Project 3, Part 1 - Documentation
+Project 3, Part 2 - Documentation
 
 --- Project Structure ---
 The structure of this project is as follows:
@@ -12,6 +12,8 @@ The structure of this project is as follows:
 ----- bufferHandler.js
 ----- lightingHandler.js
 ----- renderHandler.js
+----- envMapHandler.js
+----- shadowHandler.js
 --- mobile folder
 ----- connectorHandler.js
 ----- cubeHandler.js
@@ -28,19 +30,21 @@ They were written to help make certain calculations and functions simpler.  I di
 in any way.
 
 The index.html file defines the UI of the webpage, and implements our WebGL shaders.  The majority of the code
-written in the index.html file is used for lighting and drawing our mobile.
+written in the index.html file is used for lighting and drawing our mobile. Also handles refraction, reflection,
+and textures within the fragment shader
 
 The project3.js file contains the center point for handling all input events, setting initial lighting and
 initiating the rendering of the program.
 
 All of the folder and subsequent files within the src folder are named appropriately for the function they serve.
 
+All functions within these files were carefully named to model the function they serve for easy code readability
+
 Finally, the CSS file is mainly used for spacing so that I could make my webpage look the way I wanted
 it to in a clean way that follows standard web development practices.
 
 --- Extra Credit ---
-While I am not sure it counts, I made my mobile generate pseudo-randomly.  I thought it would add
-a little creativity to the project and make it more engaging from a graphical point of view.
+None
 
 --- Additional Info ---
 My program does not use any .ply files

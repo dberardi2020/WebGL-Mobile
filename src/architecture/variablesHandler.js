@@ -6,6 +6,8 @@ let description =
     "\tP: Decrease spotlight\n" +
     "\tp: Increase spotlight\n" +
     "\tR: Generate new mobile\n" +
+    "\tA: Toggle Shadows\n" +
+    "\tB: Toggle Environment Map\n" +
     "\tC: Toggle Reflection\n" +
     "\tD: Toggle Refraction\n";
 
@@ -39,9 +41,10 @@ let cubePoints = [];
 let cubeNormals = [];
 
 // Lighting variables and state
-let spotlightAngle = 0.95;
+let spotlightAngle = 0.93;
 let lightingTypes = {gouraud: "gouraud", flat: "flat"};
 let lightingType = lightingTypes.gouraud; // start the simulation w/ gouraud shading
+let lightPosition = vec4(0.0, 7.0, 0.0, 0.0);
 
 // The stack which handles the mobile hierarchy
 let stack = [];
@@ -99,7 +102,6 @@ let middleElements = [];
 let bottomElements = [];
 
 /************** Cube Map and Texture Variables **************/
-
 let cubeMap;
 
 let envMapLinks = [
@@ -131,3 +133,39 @@ let refsToggle = {
     "reflectionOn": 2.0,
     "bothOn": 3.0,
 };
+
+/********** Environment Map **********/
+let environmentMapOn = true;
+
+let texCoordsArray = [];
+let vTexCoord;
+
+let minT = 0.0;
+let maxT = 3.0;
+
+let texCoord = [
+    vec2(minT, minT),
+    vec2(minT, maxT),
+    vec2(maxT, maxT),
+    vec2(maxT, minT)
+];
+
+let textures = {
+    "stone": 0.0,
+    "grass": 1.0,
+};
+
+envMapToggles = {
+    "envMapStone": 4.0,
+    "envMapGrass": 5.0,
+    "envMapOff": 6.0
+};
+
+/********** Shadows **********/
+shadowsOn = true;
+
+// Setup shadows with lighting from above
+let shadowColor = vec4(0.0, 0.0, 0.0, 1.0);
+let shadowMap = mat4();
+shadowMap[3][3] = 0;
+shadowMap[3][1] = -1 / lightPosition[1];

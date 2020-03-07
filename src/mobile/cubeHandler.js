@@ -2,9 +2,9 @@
  * Handles the entire process of drawing a mobile cube
  * @param element
  */
-function drawMobileCube(element) {
+function drawCube(element) {
     // Create our cube
-    drawCube(element);
+    createCube(element);
 
     // Create buffers for the points, colors, and normals
     handleBuffers(cubePoints, cubeNormals, element.color);
@@ -20,10 +20,23 @@ function drawMobileCube(element) {
  * @param element
  * @returns {[]}
  */
-function drawCube(element) {
+function createCube(element) {
     let x = element.coordinates.x;
     let y = element.coordinates.y;
     let z = element.coordinates.z;
+    let scaleX;
+    let scaleY;
+    let scaleZ;
+
+    if(typeof element.scale === 'object') {
+        scaleX = element.scale.x;
+        scaleY = element.scale.y;
+        scaleZ = element.scale.z;
+    } else {
+        scaleX = element.scale;
+        scaleY = element.scale;
+        scaleZ = element.scale;
+    }
 
     cubePoints = [];
     cubeNormals = [];
@@ -40,9 +53,9 @@ function drawCube(element) {
     let cubePointsT = [];
     for (let i = 0; i < vertices.length; i++) {
         let coordinates = [
-            ((vertices[i][0] * element.scale) + x),
-            ((vertices[i][1] * element.scale) + y),
-            ((vertices[i][2] * element.scale) + z), 1.0];
+            ((vertices[i][0] * scaleX) + x),
+            ((vertices[i][1] * scaleY) + y),
+            ((vertices[i][2] * scaleZ) + z), 1.0];
         cubePointsT.push(coordinates);
     }
 
@@ -96,6 +109,13 @@ function quad(a, b, c, d) {
                 vertices[indices[i]][2], 0.0);
         }
     }
+
+    texCoordsArray.push(texCoord[0]);
+    texCoordsArray.push(texCoord[1]);
+    texCoordsArray.push(texCoord[2]);
+    texCoordsArray.push(texCoord[0]);
+    texCoordsArray.push(texCoord[2]);
+    texCoordsArray.push(texCoord[3]);
 
     return finalVertices;
 }

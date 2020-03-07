@@ -2,9 +2,9 @@
  * Handles the entire process of drawing a mobile sphere
  * @param element
  */
-function drawMobileSphere(element) {
+function drawSphere(element) {
     // Create our sphere
-    drawSphere(element);
+    createSphere(element);
 
     // Create buffers for the points, colors, and normals
     handleBuffers(spherePoints, sphereNormals, element.color);
@@ -20,7 +20,7 @@ function drawMobileSphere(element) {
  * @param element
  * @returns {[]}
  */
-function drawSphere(element) {
+function createSphere(element) {
     let x = element.coordinates.x;
     let y = element.coordinates.y;
     let z = element.coordinates.z;

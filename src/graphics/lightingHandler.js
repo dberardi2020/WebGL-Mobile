@@ -4,7 +4,6 @@
 function setLighting() {
     // Lighting constants
     let materialShininess = 30.0;
-    let lightPosition = vec4(0.0, 4.0, 0.0, 0.0);
 
     let lightAmbient = vec4(0.5, 0.5, 0.5, 1.0);
     let materialAmbient = vec4(0.3, 0.3, 0.3, 1.0);

@@ -29,5 +29,11 @@ function handleKeyPress(key) {
         case 'D':
             refractionOn = !refractionOn;
             break;
+        case 'B':
+            environmentMapOn = !environmentMapOn;
+            break;
+        case 'A':
+            shadowsOn = !shadowsOn;
+            break;
     }
 }
